@@ -20,18 +20,21 @@ Matrix::Matrix(
     FastLED.show();
 }
 
-void Matrix::setPixel(int x, int y, const CRGB& color) {
+void Matrix::setPixel(const int x, const int y, const CRGB& color) {
     if (const int index = flattenCoordinates(x, y); index >= 0 && index < ledsCount) {
         leds[index] = color;
     }
-    FastLED.show();
 }
 
 
 int Matrix::flattenCoordinates(const int x, const int y) const {
     // TODO: Implement handling of multiple matrices
-    if (y % 2 == 0) {
-        return height * y + x;
+    if (x % 2 == 0) {
+        return height * x + y;
     }
-    return height * y + (height - x - 1);
+    return height * x + (height - y - 1);
+}
+
+void Matrix::draw() {
+    FastLED.show();
 }
