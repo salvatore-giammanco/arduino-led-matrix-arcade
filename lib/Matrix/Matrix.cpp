@@ -29,10 +29,15 @@ void Matrix::setPixel(const int x, const int y, const CRGB& color) {
 
 int Matrix::flattenCoordinates(const int x, const int y) const {
     // TODO: Implement handling of multiple matrices
+    int flatCoordinates;
+
     if (x % 2 == 0) {
-        return height * x + y;
+        flatCoordinates = height * x + y;
+    } else {
+        flatCoordinates = height * x + (height - y - 1);
     }
-    return height * x + (height - y - 1);
+
+    return flatCoordinates;
 }
 
 void Matrix::draw() {
