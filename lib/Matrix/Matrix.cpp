@@ -28,14 +28,18 @@ void Matrix::setPixel(const int x, const int y, const CRGB& color) {
 
 
 int Matrix::flattenCoordinates(const int x, const int y) const {
-    // TODO: Implement handling of multiple matrices
+    // TODO: Apply rotation to even matrices
+    const int matrixIndex = y / height;
     int flatCoordinates;
+    const int localY = y % height; // Ensure y is within the bounds of the matrix height
 
     if (x % 2 == 0) {
-        flatCoordinates = height * x + y;
+        flatCoordinates = height * x + localY;
     } else {
-        flatCoordinates = height * x + (height - y - 1);
+        flatCoordinates = height * x + (height - localY - 1);
     }
+
+    flatCoordinates += matrixIndex * width * height;
 
     return flatCoordinates;
 }
